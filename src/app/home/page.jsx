@@ -9,6 +9,8 @@ import Navbar from '../components/layout/navbar'
 
 export default function Home() {
   return (
+    <>
+    < Navbar />
     <div className='container-fluid'>
       
 
@@ -23,5 +25,6 @@ export default function Home() {
      
 
     </div>
+    </>
   )
 }

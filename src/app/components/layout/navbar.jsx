@@ -33,7 +33,7 @@ export default function Navbar() {
 
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item">
-            <Link className="nav-link" href="/" passHref>
+            <Link className="nav-link" href="/home" passHref>
               Home
             </Link>
           </li>
@@ -41,6 +41,7 @@ export default function Navbar() {
           {
             id ? null : <li className="nav-item"><Link className="nav-link" href="/login" passHref>Login</Link></li>
           }
+          
           {
             id ? <li className="nav-item">
               <button className="nav-link" onClick={logout}>logout</button>

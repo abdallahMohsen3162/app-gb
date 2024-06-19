@@ -17,12 +17,6 @@
    margin: 0 auto;
 }
 
-.image-box button {
-   display: block;
-   position: absolute;
-   bottom: 0;
-   width: 100%;
-}
 
 .loading-overlay {
    position: absolute;

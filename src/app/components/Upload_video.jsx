@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 let image_server_path = [''];
 let classes = [''];
 let videoUrl = [];
+let sizes = []
 //car, human, sign
 
 function UploadIVideo() {
@@ -36,6 +37,13 @@ function UploadIVideo() {
     axios.post('http://127.0.0.1:5000/store', { data: image_server_path })
       .then(response => {
         console.log(response.data);
+        const _id = localStorage.getItem('id');
+        const url = response.data.images_url[0];
+        const size = sizes[0]
+        const type = "video";
+        axios.post('api/store', { '_id':_id , 'url':url, 'size':size, 'type':type}).then((res) => {
+          console.log(res)
+        })
         setLoading2(false);
         positiveFeedback("Saved on cloud");
       })
@@ -111,8 +119,10 @@ function UploadIVideo() {
       console.log(response.data);
       console.log(response);
       image_server_path = response.data.ret;
+      sizes = response.data.size
       videoUrl = response.data.ret;
       console.log(image_server_path);
+      popUp();
       // popUp();
     } catch (error) {
       console.log(error);
@@ -156,7 +166,6 @@ function UploadIVideo() {
     
            {
             image_server_path.map((el, idx) => {
-              // return '';
               return(
                 <video controls width="640" height="360" key={`${el}`}>
                 <source src={el} type="video/webm" />

@@ -21,12 +21,12 @@ export default function Home() {
     })
   }
 
+
   useEffect(() => {
-    axios.get('api/hello').then((response) => {
-      console.log(response.data)
+    axios.get("api/videos").then((response) => {
+      console.log(response)
     })
   }, []);
-
 
 
 
@@ -46,6 +46,8 @@ export default function Home() {
       destroy
       </button>
       <Footer />
+
+
     </div>
   )
 }

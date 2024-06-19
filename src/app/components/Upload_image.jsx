@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { detectTypeImage, positiveFeedback } from '../../../helpers/fileHelper';
 import Loading from './Loading';
-import YoloObject from './imagebox';
+import ImageBox from './imagebox';
 import Swal from 'sweetalert2';
 
 
 let image_server_path = [''];
 let classes = [''];
+let sizes = []
 //car, human, sign
 
 function UploadImage() {
@@ -112,6 +113,7 @@ function UploadImage() {
       setloading(false);
       image_server_path = response.data.message;
       classes = response.data.classes;
+      sizes = response.data.sizes
       console.log(response.data);
       setc(c + 1);
       // popUp();
@@ -149,23 +151,22 @@ function UploadImage() {
         ):('')
       }
 
-      <div className='images'>
-      {
-        (c)?(
-          image_server_path.map((el, idx) => {
-            return(
-              <div className='col-sm-6 col-md-4' >
-              <YoloObject cls={classes[idx]} url={image_server_path[idx]} />
-            </div>
+      <div className='container'>
+        <div className='row'>
+            {
+            (c)?(
+              image_server_path.map((el, idx) => {
+                return(
+                  <div className='col-md-3 col-sm-4' key={idx}>
+                    <ImageBox size={sizes[idx]} cls={classes[idx]} url={image_server_path[idx]} />
+                  </div>
+                )
+              })
+            ):(
+              ""
             )
-          })
-        ):(
-          ""
-        )
-      }
-
-
-      
+          }
+        </div>
       </div>
       {
         (loading)?(

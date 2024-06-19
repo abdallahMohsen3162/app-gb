@@ -10,6 +10,10 @@ export function middleware(request) {
         return NextResponse.redirect(new URL('/login', request.nextUrl))
     }
 
+    if(!token && path == "/home"){
+        return NextResponse.redirect(new URL('/login', request.nextUrl))
+    }
+
     if(token && path == "/register"){
         return NextResponse.redirect(new URL('/dashboard', request.nextUrl))
     }

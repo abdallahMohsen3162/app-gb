@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "axios": "^1.6.5",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
@@ -25,6 +28,8 @@
     "sweetalert2": "^11.6.13"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.6"
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/react": "^18.3.3"
   }
 }
