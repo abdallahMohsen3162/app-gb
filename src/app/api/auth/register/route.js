@@ -34,7 +34,6 @@ export async function POST(req) {
     const token = await jwt.sign(tokenData, process.env.SECRET_KEY, {expiresIn: "1d"})
 
     await query('UPDATE users SET token = ? WHERE id = ?', [token, newUser.id]);
-    const results = await query('SELECT * FROM users WHERE email = ?', [e]);
     const response = NextResponse.json({
       'message': "Login successful",
       'success': true,

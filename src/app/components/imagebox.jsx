@@ -47,7 +47,9 @@ export default function ImageBox(params) {
                       <FontAwesomeIcon style={{fontSize:"25px"}} icon={faSave}></FontAwesomeIcon>
                       </button>
                   </li>
+
                 </ul>
+                
           </div>
 
 

@@ -21,13 +21,14 @@ export default function Home() {
     })
   }
 
-
   useEffect(() => {
-    axios.get("api/videos").then((response) => {
-      console.log(response)
+    axios.get('/api/usersinfo').then((response) => {
+      console.log(response.data.data);
+      if(!response.data.data && localStorage.getItem("id")){
+        localStorage.removeItem("id");
+      }
     })
   }, []);
-
 
 
   const destroy = () => {

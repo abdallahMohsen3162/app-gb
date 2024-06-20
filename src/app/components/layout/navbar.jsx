@@ -5,11 +5,13 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+
+
 export default function Navbar() {
   const router = useRouter();
-  const [id, setId] = useState('');
+  const [id, setId] = useState(false);
   useEffect(() => {
-    setId(localStorage.getItem('id'))
+    setId(localStorage.getItem('id')? true : false)
   }, [])
 
   
@@ -37,14 +39,16 @@ export default function Navbar() {
               Home
             </Link>
           </li>
-
+   
           {
             id ? null : <li className="nav-item"><Link className="nav-link" href="/login" passHref>Login</Link></li>
           }
           
           {
             id ? <li className="nav-item">
-              <button className="nav-link" onClick={logout}>logout</button>
+              <button className="nav-link" onClick={logout}>
+               logout
+              </button>
             </li> : null
           }
 
