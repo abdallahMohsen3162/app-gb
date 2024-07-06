@@ -6,6 +6,7 @@ import "../../style/object.css"
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Import the FontAwesomeIcon component
 import { faSearch , faDownload, faSave, faGears, faEllipsisVertical} from "@fortawesome/free-solid-svg-icons"; // import the icons you need
+import Refaat from "./Refat";
 let classname = "";
 
 
@@ -30,6 +31,7 @@ export default function ImageBox(params) {
   
   return (  
     <div className={`image-box ${load ? 'loading' : ''}`}>
+      
           <div className="btn-group position-absolute top-0 end-0">
                   <button type="button" className="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                   <FontAwesomeIcon icon={faEllipsisVertical} />
@@ -37,9 +39,9 @@ export default function ImageBox(params) {
 
                 <ul className="dropdown-menu">
                   <li>
-                    <button className="btn btn-dark" onClick={() => downloadImage(params.url, classname)}>
+                    <a target="_blank" href={params.url} className="btn btn-dark" >
                       <FontAwesomeIcon style={{fontSize:"25px"}} icon={faDownload}></FontAwesomeIcon>
-                    </button>
+                    </a>
                   </li>
        
                   <li>  
@@ -58,8 +60,8 @@ export default function ImageBox(params) {
                 <span className="sr-only"></span>
             </div>
         </div>
-        
         <img style={{maxHeight: '80%'}} src={params.url} alt="Image" className="img-fluid" />
+        {/* < Refaat img_url={params.url} /> */}
         <div className="buttons-box row">
 
 

@@ -15,11 +15,6 @@ export const GET = async () => {
 };
 
 
-
-
-
-
-
 export const POST = async (req) => {
   try {
     const body = await req.json();

@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
+.input-contact{
+    width: 70%;
+    border-radius: 0px;
+}
+
+.message-contact{
+    width: 70%;
+    border-radius: 0px;
+}
+
+
+.contact button{
+    transition: all 0.2s;
+    color: #fff;
+    background-color: #00c3da;
+    padding: 10px 25px;
+    font-size: 16px;
+    
+}
+.contact button:hover{
+    transform: translateY(-1px);
+    background-color: #00d5ee;
+    color: #fff;
+}
+
+.contact .title-contact h2{
+    color:rgba(169, 169, 169, 0.2);
+    font-size: 70px;
+}
+
+.l-contact{
+    transform: translate(0px,-10px);
+}
+.contact .title-contact .title-layer-contacts  h2{
+    font-size: 38px;
+}
+
+
+
+label{
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+}

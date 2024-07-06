@@ -5,12 +5,14 @@ import { detectTypeImage, positiveFeedback } from '../../../helpers/fileHelper';
 import Loading from './Loading';
 import YoloObject from './imagebox';
 import Swal from 'sweetalert2';
-
-
+import "../../style/globals.css"
+const time_delay = 9000000
 let image_server_path = [''];
 let classes = [''];
 let videoUrl = [];
 let sizes = []
+let low_res_array = [32, 64, 128, 256, 512, 1024]
+
 //car, human, sign
 
 function UploadIVideo() {
@@ -20,7 +22,7 @@ function UploadIVideo() {
   const [loading, setloading] = useState(false);
   const [allowToUploaad, setUploadBtton] = useState(false);
   const [loading2, setLoading2] = useState(false);
-
+  const [low_res, set_lowres] = useState(32);
   const del = () => {
     axios.post('http://127.0.0.1:5000/delete', { data: image_server_path })
       .then(response => {
@@ -109,11 +111,12 @@ function UploadIVideo() {
     try {
       const formData = new FormData();
       formData.append('image', image);
-
+      formData.append('low_res', low_res);
       const response = await axios.post('http://127.0.0.1:5000/upload_video', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        timeout: time_delay
       });
       setloading(false);
       console.log(response.data);
@@ -128,13 +131,13 @@ function UploadIVideo() {
       console.log(error);
     }
   };
-
+  console.log(low_res);
   // const handlefocus = (i) => {
   //   setSpecial(i);
   // }
 
   return (
-    <div className='images-yolo'>
+    <div className='images-yolo mt-5'>
       <div
         className='drag-drop'
         onDragOver={handleDragOver}
@@ -158,6 +161,24 @@ function UploadIVideo() {
         ):('')
       }
 
+<p>Choose your image approximate resolution</p>
+    <div className={`btn-group`} >
+        {
+          low_res_array.map((el, idx) => {
+            
+            return (
+              <button
+                key={idx}
+                className={`btn btn-dark text-light choice-res btn ${low_res == el ? 'btn-color' : ''}`}
+                onClick={() => set_lowres(el)}
+              >
+                {el == -1 ? "Original" : el}
+              </button>
+            );
+          })
+        }
+    </div>
+
       {
         (loading)?(
           < Loading ltype="process-vid"/>
@@ -167,7 +188,7 @@ function UploadIVideo() {
            {
             image_server_path.map((el, idx) => {
               return(
-                <video controls width="640" height="360" key={`${el}`}>
+                <video width="640" height="360" key={`${el}`}>
                 <source src={el} type="video/webm" />
                 Your browser does not support the video tag.
               </video>

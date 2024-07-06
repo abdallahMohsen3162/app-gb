@@ -1,0 +1,40 @@
+/* sider-style.css */
+.sidebar {
+  height: 100vh;
+  background-color: #333;
+  color: #fff;
+  transition: width 0.3s;
+}
+
+.sidebar-collapsed {
+  width: 80px;
+}
+
+.sidebar-expanded {
+  width: 250px;
+}
+
+.menu-item {
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+
+.menu-item:hover {
+  background-color: #444;
+}
+
+.menu-icon {
+  margin-right: 10px;
+  color: #fff;
+}
+
+.menu-text {
+  display: none;
+}
+
+.sidebar-expanded .menu-text {
+  display: inline;
+}

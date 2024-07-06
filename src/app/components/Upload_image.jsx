@@ -5,11 +5,18 @@ import { detectTypeImage, positiveFeedback } from '../../../helpers/fileHelper';
 import Loading from './Loading';
 import ImageBox from './imagebox';
 import Swal from 'sweetalert2';
-
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import Refaat from './Refat';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faX } from '@fortawesome/free-solid-svg-icons';
+const time_delay = 900000000
 
 let image_server_path = [''];
 let classes = [''];
 let sizes = []
+let retbefore = [];
+let low_res_array = [-1,32, 64, 128, 256, 512, 1024]
 //car, human, sign
 
 function UploadImage() {
@@ -19,9 +26,27 @@ function UploadImage() {
   const [loading, setloading] = useState(false);
   const [allowToUploaad, setUploadBtton] = useState(false);
   const [loading2, setLoading2] = useState(false);
+  const [low_res, set_lowres] = useState(-1);
+  const [useYolo, setUseYolo] = useState("false");
+  const [zoom, setzoom] = useState('');
+  const [low_zoom, setlow_zoom] = useState('');
+  const router = useRouter();
+
+
+
+  useEffect(() => {
+    window.onabort = () => {
+      console.log('Aborted');
+    }
+    window.onkeydown = (e) => {
+      if(e.key == 'Escape'){
+        setzoom('');
+      }
+    }
+  }, []);
 
   const del = () => {
-    axios.post('http://127.0.0.1:5000/delete', { data: image_server_path })
+    axios.post('http://127.0.0.1:5000/delete', { data: image_server_path }, { timeout: time_delay })
       .then(response => {
       })
       .catch(error => {
@@ -49,10 +74,10 @@ function UploadImage() {
     });
   };
 
-  
+    console.log(low_res);
 
   const store = () => {
-    axios.post('http://127.0.0.1:5000/store', { data: image_server_path })
+    axios.post('http://127.0.0.1:5000/store', { data: image_server_path }, { timeout: time_delay })
       .then(response => {
         console.log(response.data);
         setLoading2(false);
@@ -103,14 +128,17 @@ function UploadImage() {
     try {
       const formData = new FormData();
       formData.append('image', image);
-
+      formData.append('low_res', low_res);
+      formData.append('yolo', useYolo);
       const response = await axios.post('http://127.0.0.1:5000/upload_image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        timeout: time_delay
       });
-
+      console.log(response.data);
       setloading(false);
+      retbefore = response.data.retbefore
       image_server_path = response.data.message;
       classes = response.data.classes;
       sizes = response.data.sizes
@@ -127,7 +155,7 @@ function UploadImage() {
   // }
 
   return (
-    <div className='images-yolo'>
+    <div className='images-yolo mt-5'>
       <div
         className='drag-drop'
         onDragOver={handleDragOver}
@@ -151,14 +179,39 @@ function UploadImage() {
         ):('')
       }
 
+      
+    <p>Choose your image approximate resolution</p>
+    <div className={`btn-group`} >
+        {
+          low_res_array.map((el, idx) => {
+            
+            return (
+              <button
+                key={idx}
+                className={`btn btn-dark text-light choice-res btn ${low_res == el ? 'btn-color' : ''}`}
+                onClick={() => set_lowres(el)}
+              >
+                {el == -1 ? "Original" : el}
+              </button>
+            );
+          })
+        }
+    </div>
+
+        <button onClick={() => setUseYolo(useYolo=="false"? "true" : "false")} className={`btn btn-dark text-light btn ${useYolo =='true'? 'btn-color' : ''}`}>
+          {useYolo == 'true'? "Disable Yolo" : "Enable Yolo"}
+        </button>
+
       <div className='container'>
         <div className='row'>
             {
             (c)?(
               image_server_path.map((el, idx) => {
                 return(
-                  <div className='col-md-3 col-sm-4' key={idx}>
-                    <ImageBox size={sizes[idx]} cls={classes[idx]} url={image_server_path[idx]} />
+                  <div className='col-sm-12 col-md-6' key={idx} >
+                   <div onClick={() => {setzoom(image_server_path[idx]) ; setlow_zoom(retbefore[idx])}}>
+                   <ImageBox size={sizes[idx]} cls={classes[idx]} url={image_server_path[idx]} />
+                   </div>
                   </div>
                 )
               })
@@ -177,6 +230,19 @@ function UploadImage() {
       {
         (loading2)?(
           < Loading ltype="storing"/>
+        ):("")
+      }
+
+         
+      {
+        (zoom)?(
+          <div className='zoom-container'>
+          <button className='btn btn-danger' onClick={() => setzoom('')}>
+            <FontAwesomeIcon icon={faX} />
+          </button>
+          <br />
+          <Refaat img_url={zoom} img_url2={low_zoom}/>
+        </div>
         ):("")
       }
     </div>

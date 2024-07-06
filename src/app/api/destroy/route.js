@@ -7,13 +7,13 @@ export async function DELETE(request) {
   try {
     const token = request.cookies.get('token').value;
 
-
+    
     const userResult = await query('SELECT * FROM users WHERE token = ?', [token]);
     if (userResult.length === 0) {
       return NextResponse.json({ error: 'USER DOES NOT EXIST' }, { status: 404 });
     }
     const userId = userResult[0].id;
-
+    
     // Récupérer la taille de l'entrée à supprimer
     const bucketResult = await query('SELECT size FROM bucket WHERE id = ? AND user_id = ?', [_id, userId]);
     if (bucketResult.length === 0) {

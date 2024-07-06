@@ -1,0 +1,42 @@
+.video{
+  max-width: 100%;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.video-box {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.wallpaper {
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 2rem;
+  transition: opacity 0.3s;
+}
+
+.video-box:hover .wallpaper {
+  opacity: 0.8;
+}
+
+.video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.3s;
+}
+
+.video-box:hover .video {
+  transform: scale(1.05);
+}
+
+.trash {
+  z-index: 10;
+  top: 10px;
+  right: 10px;
+}

@@ -1,21 +1,24 @@
 import React from 'react'
 
-export default function footer() {
+export default function Footer() {
   const currentYear = new Date().getFullYear();
   return (
     <div>
-    <footer className="footer container-fluid py-3 bg-dark">
-      <p>Copyright &copy; {currentYear} Your Company Name</p>
-      <ul className="mb-0">
-        <li>
-          <a href="#">Privacy Policy</a>
-        </li>
-        <li>
-          <a href="#">Terms & Conditions</a>
-        </li>
-        {/* Add more links as needed */}
-      </ul>
-    </footer>
+<div className="  ">
+  <footer className=" card-footer  bg-dark text-center text-white">
+
+    <div className="text-center p-3" style={{backgroundColor: 'rgba(0, 0, 0, 0.2)'}}>
+      
+      <p>
+      &copy; {currentYear} Copyright: 
+      </p>
+      <a className="text-white" href="https://Vimage.com/">Vimage.com</a>
+    </div>
+  </footer>
+</div>
     </div>
   )
 }
+
+
+

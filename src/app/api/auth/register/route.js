@@ -10,8 +10,8 @@ export async function POST(req) {
   const { username, email, password } = await req.json();
 
   try {
-
     const emailCheckResults = await query('SELECT * FROM users WHERE email = ?', [email]);
+    // return NextResponse.json({ 'msg': `${emailCheckResults} ${password} ${username}` }, { status: 200 });
     if (emailCheckResults.length > 0) {
       return NextResponse.json({ error: 'Email already in use' }, { status: 409 });
     }
